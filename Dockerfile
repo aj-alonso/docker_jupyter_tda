@@ -53,6 +53,6 @@ RUN pip install .
 
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="${HOME}/.cargo/bin:/root/.cargo/bin:${PATH}"
-RUN pip install filtration_domination
+RUN pip install "filtration_domination==0.0.2"
 
 RUN pip install shapely

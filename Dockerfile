@@ -12,7 +12,8 @@ RUN apt-get update --yes && apt-get install --yes \
     libboost-dev \
     libboost-thread-dev \
     libtbb-dev \
-    python3-dev
+    python3-dev \
+    curl
 
 # Install hera
 WORKDIR /opt/
@@ -32,9 +33,7 @@ RUN bash install_pyrivet.sh
 
 # Install cgal
 WORKDIR /opt
-RUN git clone https://github.com/GUDHI/gudhi-deploy.git
-RUN apt-get install --yes curl
-RUN bash gudhi-deploy/install_cgal.sh
+RUN git clone https://github.com/GUDHI/gudhi-deploy.git && bash gudhi-deploy/install_cgal.sh
 
 # Install GUDHI
 ARG GUDHI_VERSION="3.6.0"
@@ -42,8 +41,8 @@ RUN curl -LO "https://github.com/GUDHI/gudhi-devel/releases/download/tags%2Fgudh
     && tar xf gudhi.${GUDHI_VERSION}.tar.gz \
     && cd gudhi.${GUDHI_VERSION} \
     && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DWITH_GUDHI_PYTHON=OFF -DPython_ADDITIONAL_VERSIONS=3 ..  \
-    && make all test install
-RUN pip install gudhi
+    && make all test install \
+    && pip install gudhi
 
 # Install approximation of multipers
 WORKDIR /opt

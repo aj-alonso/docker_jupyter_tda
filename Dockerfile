@@ -51,7 +51,7 @@ RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 # Install approximation of multipers
 WORKDIR /opt
-RUN git clone https://github.com/DavidLapous/multipers.git \
+RUN git clone https://gitlab.inria.fr/dloiseau/multipers.git \
     && cd multipers \
     && git checkout 4785dcf56423cfcecca9799447c29b916e433f22 \
     && cd src \

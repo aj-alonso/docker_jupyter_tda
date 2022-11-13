@@ -44,14 +44,19 @@ RUN curl -LO "https://github.com/GUDHI/gudhi-devel/releases/download/tags%2Fgudh
     && make all test install \
     && pip install gudhi
 
+# Install shapely
+RUN pip install shapely
+# And rust
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+
 # Install approximation of multipers
 WORKDIR /opt
-RUN git clone https://github.com/DavidLapous/multipers.git
-WORKDIR /opt/multipers/src
-RUN pip install .
+RUN git clone https://github.com/DavidLapous/multipers.git \
+    && cd multipers \
+    && git checkout 4785dcf56423cfcecca9799447c29b916e433f22 \
+    && cd src \
+    && pip install .
 
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="${HOME}/.cargo/bin:/root/.cargo/bin:${PATH}"
 RUN pip install "filtration_domination==0.0.2"
 
-RUN pip install shapely

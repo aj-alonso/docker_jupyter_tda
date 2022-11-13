@@ -49,6 +49,9 @@ RUN pip install shapely
 # And rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
+ENV PATH="${HOME}/.cargo/bin:/root/.cargo/bin:${PATH}"
+RUN pip install "filtration_domination==0.0.2"
+
 # Install approximation of multipers
 WORKDIR /opt
 RUN git clone https://gitlab.inria.fr/dloiseau/multipers.git \
@@ -56,7 +59,4 @@ RUN git clone https://gitlab.inria.fr/dloiseau/multipers.git \
     && git checkout 4785dcf56423cfcecca9799447c29b916e433f22 \
     && cd src \
     && pip install .
-
-ENV PATH="${HOME}/.cargo/bin:/root/.cargo/bin:${PATH}"
-RUN pip install "filtration_domination==0.0.2"
 

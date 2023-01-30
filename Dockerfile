@@ -50,13 +50,14 @@ RUN pip install shapely
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 ENV PATH="${HOME}/.cargo/bin:/root/.cargo/bin:${PATH}"
-RUN pip install "filtration_domination==0.0.2"
+RUN pip install "filtration_domination>=0.0.4"
 
 # Install approximation of multipers
 WORKDIR /opt
 RUN git clone https://gitlab.inria.fr/dloiseau/multipers.git \
     && cd multipers \
-    && git checkout 4785dcf56423cfcecca9799447c29b916e433f22 \
+    && git checkout be82c13034c68989d22cd6624d79e7d69ab77ac6 \
     && cd src \
+    && sed -i '/tests.pyx/d' main.pyx \
     && pip install .
 

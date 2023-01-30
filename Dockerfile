@@ -61,3 +61,12 @@ RUN git clone https://gitlab.inria.fr/dloiseau/multipers.git \
     && sed -i '/tests.pyx/d' main.pyx \
     && pip install .
 
+# Install mpfree
+WORKDIR /opt
+RUN git clone https://bitbucket.org/mkerber/mpfree.git \
+    && cd mpfree \
+    && mkdir build \
+    && cd build \
+    && cmake -DCMAKE_BUILD_TYPE=Release .. \
+    && make \
+    && cp mpfree /usr/local/bin/
